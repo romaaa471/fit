@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitCRM - Manage Clients</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Inline CSS for hiding and showing sections */
+    #clientsSection {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-buttons" style="text-align:center; margin-bottom: 20px;">
+    <button id="showFormBtn">New Client Form</button>
+    <button id="showClientsBtn">View Clients</button>
+  </div>
+
+  <div id="formSection">
+    <h1>New Client Form</h1>
+    <form class="client-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" min="1" required />
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" />
+
+      <label for="goal">Fitness Goal</label>
+      <select id="goal" name="goal">
+        <option value="weight-loss">Weight Loss</option>
+        <option value="muscle-gain">Muscle Gain</option>
+        <option value="general-fitness">General Fitness</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="start-date">Membership Start Date</label>
+      <input type="date" id="start-date" name="start-date" />
+
+      <button id="addClientBtn" type="button">Add Client</button>
+    </form>
+  </div>
+
+  <div id="clientsSection">
+    <h2>Client List</h2>
+    <input type="text" placeholder="Search by client name" class="search-box" />
+
+    <table class="client-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Fitness Goal</th>
+          <th>Membership Start Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ahmed Ali</td>
+          <td>ahmed@email.com</td>
+          <td>01012345678</td>
+          <td>Weight Loss</td>
+          <td>2025-09-01</td>
+          <td><button class="editBtn">Edit</button> <button class="deleteBtn">Delete</button></td>
+        </tr>
+        <tr>
+          <td>Sara Youssef</td>
+          <td>sara@email.com</td>
+          <td>01290023222</td>
+          <td>Muscle Gain</td>
+          <td>2025-09-15</td>
+          <td><button class="editBtn">Edit</button> <button class="deleteBtn">Delete</button></td>
+        </tr>
+        <tr><td>Mohamed Samir</td><td>mohamed@email.com</td><td>01112345678</td><td>General Fitness</td><td>2025-07-21</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Fatma Hassan</td><td>fatma@email.com</td><td>01098765432</td><td>Weight Loss</td><td>2025-08-10</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Yusuf Khaled</td><td>yusuf@email.com</td><td>01234567890</td><td>Muscle Gain</td><td>2025-09-30</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Layla Nassar</td><td>layla@email.com</td><td>01117772233</td><td>General Fitness</td><td>2025-06-05</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Omar Rashed</td><td>omar@email.com</td><td>01066655444</td><td>Weight Loss</td><td>2025-10-01</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Huda Mahmoud</td><td>huda@email.com</td><td>01223344556</td><td>Muscle Gain</td><td>2025-07-18</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Khaled Amin</td><td>khaled@email.com</td><td>01055566777</td><td>General Fitness</td><td>2025-09-12</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Reem Sabry</td><td>reem@email.com</td><td>01199887766</td><td>Weight Loss</td><td>2025-08-29</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Adel Fathy</td><td>adel@email.com</td><td>01211122333</td><td>Muscle Gain</td><td>2025-10-03</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Samira Adly</td><td>samira@email.com</td><td>01024446655</td><td>Weight Loss</td><td>2025-08-20</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Mahmoud Nabil</td><td>mahmoud@email.com</td><td>01255443322</td><td>Muscle Gain</td><td>2025-09-21</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+        <tr><td>Nourhan Said</td><td>nourhan@email.com</td><td>01177789900</td><td>General Fitness</td><td>2025-07-15</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Show/hide sections logic
+    const formSection = document.getElementById('formSection');
+    const clientsSection = document.getElementById('clientsSection');
+    document.getElementById('showFormBtn').addEventListener('click', () => {
+      formSection.style.display = 'block';
+      clientsSection.style.display = 'none';
+    });
+    document.getElementById('showClientsBtn').addEventListener('click', () => {
+      formSection.style.display = 'none';
+      clientsSection.style.display = 'block';
+    });
+
+    // Search functionality
+    document.querySelector('.search-box').addEventListener('input', function() {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll('.client-table tbody tr');
+
+      rows.forEach(row => {
+        const name = row.querySelector('td:first-child').textContent.toLowerCase();
+        if (name.includes(filter)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+
+    // Add Client button functionality
+    document.getElementById('addClientBtn').addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const goal = document.getElementById('goal').value;
+      const startDate = document.getElementById('start-date').value;
+
+      if (!name || !email || !goal || !startDate) {
+        alert('Please fill all required fields');
+        return;
+      }
+
+      const tbody = document.querySelector('.client-table tbody');
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${email}</td>
+        <td>${phone}</td>
+        <td>${goal}</td>
+        <td>${startDate}</td>
+        <td>
+          <button class="editBtn">Edit</button>
+          <button class="deleteBtn">Delete</button>
+        </td>
+      `;
+
+      tbody.appendChild(newRow);
+
+      document.querySelector('.client-form').reset();
+    });
+
+    // Edit and delete buttons delegation
+    document.querySelector('.client-table tbody').addEventListener('click', (e) => {
+      if (e.target.classList.contains('deleteBtn')) {
+        e.target.closest('tr').remove();
+      } else if (e.target.classList.contains('editBtn')) {
+        const row = e.target.closest('tr');
+        const cells = row.querySelectorAll('td');
+        if (e.target.textContent === 'Edit') {
+          cells.forEach((cell, i) => {
+            if (i < 5) {
+              cell.innerHTML = `<input type="text" value="${cell.textContent}" />`;
+            }
+          });
+          e.target.textContent = 'Save';
+        } else {
+          let valid = true;
+          cells.forEach((cell, i) => {
+            if (i < 5) {
+              const val = cell.firstChild.value.trim();
+              if (val === '') valid = false;
+              cell.textContent = val;
+            }
+          });
+          if (!valid) {
+            alert('Please fill all fields');
+            return;
+          }
+          e.target.textContent = 'Edit';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
+
