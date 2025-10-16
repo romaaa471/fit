@@ -4,45 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness CRM - Dashboard</title>
-    
-    <!-- Google Fonts - Poppins for modern, clean typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* ========================================
-           CSS VARIABLES (DESIGN TOKENS)
-           Centralized color scheme and styling values
-           ======================================== */
+        /* --- Base Styles --- */
         :root {
-            /* Primary Colors */
             --primary-blue: #2563EB;
             --primary-green: #10B981;
             --danger-red: #EF4444;
-            
-            /* Background Colors */
             --bg-light-blue: #EFF6FF;
             --bg-light-green: #ECFDF5;
             --bg-light-yellow: #FEF9C3;
-            
-            /* Text Colors */
             --text-dark: #1F2937;
             --text-light: #6B7280;
-            
-            /* UI Colors */
             --border-color: #E5E7EB;
             --white: #FFFFFF;
-            
-            /* Effects */
             --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             --header-gradient: linear-gradient(135deg, #1E40AF 0%, #10B981 100%);
         }
 
-        /* ========================================
-           RESET & BASE STYLES
-           Remove default browser styling
-           ======================================== */
         * {
             margin: 0;
             padding: 0;
@@ -55,10 +36,7 @@
             color: var(--text-dark);
         }
 
-        /* ========================================
-           HEADER SECTION
-           Top navigation bar with branding and CTA
-           ======================================== */
+        /* --- Header --- */
         .header {
             background: var(--header-gradient);
             color: var(--white);
@@ -68,14 +46,12 @@
             align-items: center;
         }
 
-        /* Brand section with logo and text */
         .header-brand {
             display: flex;
             align-items: center;
             gap: 1.25rem;
         }
 
-        /* Logo container with semi-transparent background */
         .header-brand .logo {
             background: rgba(255, 255, 255, 0.15);
             padding: 0.5rem;
@@ -89,20 +65,17 @@
             stroke: var(--white);
         }
 
-        /* Main heading styles */
         .header-brand h1 {
             font-size: 2rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
-        /* Tagline text */
         .header-brand p {
             font-size: 0.95rem;
             opacity: 0.95;
         }
 
-        /* Add Client button in header */
         .btn-add-client {
             background-color: rgba(255, 255, 255, 0.2);
             color: var(--white);
@@ -119,26 +92,19 @@
             gap: 0.5rem;
         }
 
-        /* Hover effect for add client button */
         .btn-add-client:hover {
             background-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
 
-        /* ========================================
-           MAIN CONTENT AREA
-           Container for all dashboard content
-           ======================================== */
+        /* --- Main Content --- */
         .main-content {
             padding: 2.5rem 3rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* ========================================
-           STATISTICS CARDS
-           Dashboard metrics at the top
-           ======================================== */
+        /* --- Stats Grid --- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -146,7 +112,6 @@
             margin-bottom: 2.5rem;
         }
 
-        /* Individual stat card */
         .stat-card {
             background-color: var(--white);
             padding: 2rem;
@@ -158,13 +123,11 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* Lift effect on hover */
         .stat-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* Icon container within stat card */
         .stat-icon {
             padding: 1rem;
             border-radius: 12px;
@@ -179,7 +142,6 @@
             height: 32px;
         }
 
-        /* Color variations for different stat cards */
         .stat-card-blue .stat-icon { background-color: var(--bg-light-blue); }
         .stat-card-blue .stat-icon svg { stroke: var(--primary-blue); }
         .stat-card-green .stat-icon { background-color: var(--bg-light-green); }
@@ -187,7 +149,6 @@
         .stat-card-yellow .stat-icon { background-color: var(--bg-light-yellow); }
         .stat-card-yellow .stat-icon svg { stroke: #F59E0B; }
 
-        /* Stat number styling */
         .stat-info h2 {
             font-size: 2.5rem;
             font-weight: 700;
@@ -195,14 +156,12 @@
             margin-bottom: 0.25rem;
         }
 
-        /* Stat label styling */
         .stat-info span {
             font-size: 0.95rem;
             color: var(--text-light);
             font-weight: 500;
         }
 
-        /* Special layout for goals stat card */
         .stat-info-goals {
             display: flex;
             flex-direction: column;
@@ -226,10 +185,7 @@
             font-weight: 700;
         }
 
-        /* ========================================
-           CLIENT CONTROLS
-           Search bar and view toggle section
-           ======================================== */
+        /* --- Client Controls --- */
         .client-controls {
             display: flex;
             justify-content: space-between;
@@ -238,14 +194,12 @@
             gap: 1.5rem;
         }
 
-        /* Search input container */
         .search-bar {
             position: relative;
             width: 100%;
             max-width: 450px;
         }
 
-        /* Search icon positioning */
         .search-bar svg {
             position: absolute;
             left: 1.25rem;
@@ -254,7 +208,6 @@
             color: var(--text-light);
         }
 
-        /* Search input field */
         .search-bar input {
             width: 100%;
             padding: 1rem 1.25rem 1rem 3.25rem;
@@ -265,14 +218,12 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* Search input focus state */
         .search-bar input:focus {
             outline: none;
             border-color: var(--primary-blue);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        /* View toggle button group */
         .view-toggle {
             display: flex;
             background-color: var(--white);
@@ -282,7 +233,6 @@
             gap: 4px;
         }
 
-        /* Individual toggle button */
         .toggle-btn {
             background: transparent;
             border: none;
@@ -294,7 +244,6 @@
             transition: all 0.2s ease;
         }
 
-        /* Active toggle button state */
         .toggle-btn.active {
             background-color: var(--primary-blue);
         }
@@ -303,22 +252,17 @@
             color: var(--text-light);
         }
 
-        /* Active toggle button icon color */
         .toggle-btn.active svg {
             color: var(--white);
         }
 
-        /* ========================================
-           CLIENT GRID VIEW
-           Card-based layout for clients
-           ======================================== */
+        /* --- Client Grid --- */
         .client-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
         }
 
-        /* Individual client card */
         .client-card {
             background: var(--white);
             border-radius: 16px;
@@ -327,13 +271,11 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* Card hover effect */
         .client-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
-        /* Card header with client info and actions */
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -343,14 +285,12 @@
             margin-bottom: 1.25rem;
         }
 
-        /* Client info section (avatar + name) */
         .client-info {
             display: flex;
             align-items: center;
             gap: 1.25rem;
         }
 
-        /* Circular avatar with initials */
         .client-avatar {
             width: 56px;
             height: 56px;
@@ -365,14 +305,12 @@
             flex-shrink: 0;
         }
 
-        /* Client name and age container */
         .client-name-age h3 {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        /* Age badge styling */
         .age-tag {
             background-color: var(--bg-light-green);
             color: var(--primary-green);
@@ -391,7 +329,6 @@
             height: 14px;
         }
 
-        /* Action icons (edit/delete) */
         .card-actions {
             display: flex;
             gap: 1rem;
@@ -405,18 +342,15 @@
             height: 20px;
         }
 
-        /* Action icon hover effect */
         .card-actions svg:hover {
             color: var(--primary-blue);
         }
 
-        /* Card body with client details */
         .card-body {
             display: grid;
             gap: 1rem;
         }
 
-        /* Individual detail item */
         .card-item {
             display: flex;
             align-items: center;
@@ -435,10 +369,7 @@
             font-weight: 500;
         }
 
-        /* ========================================
-           TABLE VIEW
-           List-based layout for clients
-           ======================================== */
+        /* --- Table View --- */
         .table-container {
             background: var(--white);
             border-radius: 16px;
@@ -451,7 +382,6 @@
             border-collapse: collapse;
         }
 
-        /* Table cell padding and borders */
         .client-table th,
         .client-table td {
             padding: 1.25rem 1.5rem;
@@ -459,7 +389,6 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* Table header styling */
         .client-table thead {
             background-color: #F9FAFB;
         }
@@ -472,20 +401,14 @@
             letter-spacing: 0.05em;
         }
 
-        /* Remove border from last row */
         .client-table tbody tr:last-child td {
             border-bottom: none;
         }
 
-        /* Row hover effect */
         .client-table tbody tr:hover {
             background-color: #F9FAFB;
         }
 
-        /* ========================================
-           BADGES
-           Colored labels for goals and statuses
-           ======================================== */
         .badge {
             padding: 0.35rem 0.75rem;
             border-radius: 12px;
@@ -494,15 +417,11 @@
             display: inline-block;
         }
 
-        /* Badge color variations */
         .badge-blue { background-color: var(--bg-light-blue); color: var(--primary-blue); }
         .badge-green { background-color: var(--bg-light-green); color: var(--primary-green); }
         .badge-purple { background-color: #F4EFFF; color: #8B5CF6; }
         .badge-orange { background-color: #FEF3C7; color: #F59E0B; }
 
-        /* ========================================
-           ACTION BUTTONS (Edit/Delete in table)
-           ======================================== */
         .btn-action {
             background: transparent;
             border: 1px solid var(--border-color);
@@ -516,18 +435,12 @@
             transition: all 0.2s ease;
         }
 
-        /* Edit button styling */
         .btn-edit { color: var(--primary-blue); }
         .btn-edit:hover { background-color: var(--bg-light-blue); border-color: var(--primary-blue); }
-        
-        /* Delete button styling */
         .btn-delete { color: var(--danger-red); }
         .btn-delete:hover { background-color: #FEF2F2; border-color: var(--danger-red); }
 
-        /* ========================================
-           FORM STYLES
-           Add/Edit client form
-           ======================================== */
+        /* --- Form Styles --- */
         .form-container {
             background: var(--white);
             padding: 3rem;
@@ -537,7 +450,6 @@
             margin: 0 auto;
         }
 
-        /* Form heading */
         .form-container h2 {
             font-size: 2rem;
             margin-bottom: 2rem;
@@ -545,35 +457,30 @@
             color: var(--text-dark);
         }
 
-        /* Form layout */
         .client-form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        /* Two-column form row */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
         }
 
-        /* Individual form field container */
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        /* Form field labels */
         .form-group label {
             font-weight: 600;
             font-size: 0.9rem;
             color: var(--text-dark);
         }
 
-        /* Form inputs and selects */
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -585,7 +492,6 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* Form field focus state */
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
@@ -594,14 +500,12 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        /* Form button container */
         .form-actions {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
         }
 
-        /* Primary action button (Submit) */
         .btn-primary {
             background-color: var(--primary-blue);
             color: var(--white);
@@ -615,14 +519,12 @@
             transition: all 0.2s ease;
         }
 
-        /* Primary button hover effect */
         .btn-primary:hover {
             background-color: #1E40AF;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        /* Secondary action button (Cancel) */
         .btn-secondary {
             background-color: transparent;
             color: var(--text-dark);
@@ -636,15 +538,11 @@
             transition: all 0.2s ease;
         }
 
-        /* Secondary button hover effect */
         .btn-secondary:hover {
             background-color: #F9FAFB;
         }
 
-        /* ========================================
-           MODAL
-           Overlay for add/edit forms
-           ======================================== */
+        /* --- Modal --- */
         .modal {
             display: none;
             position: fixed;
@@ -659,12 +557,10 @@
             padding: 2rem;
         }
 
-        /* Show modal when active */
         .modal.active {
             display: flex;
         }
 
-        /* Modal content container */
         .modal-content {
             background: var(--white);
             border-radius: 16px;
@@ -675,21 +571,13 @@
             padding: 3rem;
         }
 
-        /* ========================================
-           UTILITY CLASSES
-           ======================================== */
+        /* --- Hidden --- */
         .hidden {
             display: none !important;
         }
 
-        /* ========================================
-           RESPONSIVE DESIGN
-           Mobile and tablet adaptations
-           ======================================== */
-        
-        /* Tablet breakpoint */
+        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            /* Stack header vertically */
             .header {
                 padding: 1.5rem;
                 flex-direction: column;
@@ -706,17 +594,14 @@
                 font-size: 1.5rem;
             }
 
-            /* Reduce main content padding */
             .main-content {
                 padding: 1.5rem;
             }
 
-            /* Single column stats grid */
             .stats-grid {
                 grid-template-columns: 1fr;
             }
 
-            /* Stack controls vertically */
             .client-controls {
                 flex-direction: column;
                 align-items: stretch;
@@ -726,12 +611,10 @@
                 max-width: 100%;
             }
 
-            /* Single column client grid */
             .client-grid {
                 grid-template-columns: 1fr;
             }
 
-            /* Single column form rows */
             .form-row {
                 grid-template-columns: 1fr;
             }
@@ -740,7 +623,6 @@
                 padding: 2rem 1.5rem;
             }
 
-            /* Enable horizontal scroll for table */
             .table-container {
                 overflow-x: auto;
             }
@@ -754,15 +636,12 @@
             }
         }
 
-        /* Mobile breakpoint */
         @media (max-width: 480px) {
-            /* Stack stat cards vertically */
             .stat-card {
                 flex-direction: column;
                 text-align: center;
             }
 
-            /* Stack form buttons vertically */
             .form-actions {
                 flex-direction: column;
             }
@@ -770,14 +649,9 @@
     </style>
 </head>
 <body>
-    <!-- ========================================
-         MAIN DASHBOARD CONTAINER
-         ======================================== -->
     <div class="dashboard-container">
-        <!-- Header with branding and primary action -->
         <header class="header">
             <div class="header-brand">
-                <!-- Logo icon -->
                 <div class="logo">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
@@ -787,24 +661,17 @@
                         <path d="M2 12h20"></path>
                     </svg>
                 </div>
-                <!-- Brand name and tagline -->
                 <div>
                     <h1>Fitness CRM</h1>
                     <p>Manage your clients with ease</p>
                 </div>
             </div>
-            <!-- Primary CTA button -->
             <button class="btn-add-client" onclick="openAddClientModal()">+ Add Client</button>
         </header>
 
-        <!-- Main content area -->
         <main class="main-content">
-            <!-- ========================================
-                 STATISTICS SECTION
-                 Display key metrics at a glance
-                 ======================================== -->
+            <!-- Stats Section -->
             <section class="stats-grid">
-                <!-- Total clients stat -->
                 <div class="stat-card stat-card-blue">
                     <div class="stat-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -819,8 +686,6 @@
                         <span>Total Clients</span>
                     </div>
                 </div>
-                
-                <!-- New clients this month stat -->
                 <div class="stat-card stat-card-green">
                     <div class="stat-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -833,8 +698,6 @@
                         <span>New This Month</span>
                     </div>
                 </div>
-                
-                <!-- Top fitness goals stat -->
                 <div class="stat-card stat-card-yellow">
                     <div class="stat-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -851,12 +714,8 @@
                 </div>
             </section>
 
-            <!-- ========================================
-                 CLIENT CONTROLS SECTION
-                 Search and view switching
-                 ======================================== -->
+            <!-- Controls Section -->
             <section class="client-controls">
-                <!-- Search input -->
                 <div class="search-bar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -864,10 +723,7 @@
                     </svg>
                     <input type="text" id="searchInput" placeholder="Search clients by name, email, or goal..." oninput="searchClients()">
                 </div>
-                
-                <!-- View toggle buttons -->
                 <div class="view-toggle">
-                    <!-- Grid view button -->
                     <button class="toggle-btn" id="gridViewBtn" onclick="switchView('grid')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="3" width="7" height="7"></rect>
@@ -876,7 +732,6 @@
                             <rect x="3" y="14" width="7" height="7"></rect>
                         </svg>
                     </button>
-                    <!-- List view button (default active) -->
                     <button class="toggle-btn active" id="listViewBtn" onclick="switchView('list')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="8" y1="6" x2="21" y2="6"></line>
@@ -890,16 +745,10 @@
                 </div>
             </section>
 
-            <!-- ========================================
-                 GRID VIEW SECTION
-                 Card-based client display (hidden by default)
-                 ======================================== -->
+            <!-- Grid View -->
             <section class="client-grid hidden" id="gridView"></section>
 
-            <!-- ========================================
-                 TABLE VIEW SECTION
-                 List-based client display (default view)
-                 ======================================== -->
+            <!-- Table View -->
             <div class="table-container" id="tableView">
                 <table class="client-table">
                     <thead>
@@ -918,18 +767,11 @@
         </main>
     </div>
 
-    <!-- ========================================
-         ADD/EDIT CLIENT MODAL
-         Overlay form for adding or editing clients
-         ======================================== -->
+    <!-- Add/Edit Client Modal -->
     <div class="modal" id="clientModal">
         <div class="modal-content">
-            <!-- Modal title (changes based on add/edit mode) -->
             <h2 id="modalTitle">Add New Client</h2>
-            
-            <!-- Client form -->
             <form class="client-form" id="clientForm">
-                <!-- Row 1: Name and Age -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fullName">Full Name *</label>
@@ -941,7 +783,6 @@
                     </div>
                 </div>
 
-                <!-- Row 2: Gender and Phone -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="gender">Gender *</label>
@@ -958,13 +799,11 @@
                     </div>
                 </div>
 
-                <!-- Email field -->
                 <div class="form-group">
                     <label for="email">Email *</label>
                     <input type="email" id="email" required>
                 </div>
 
-                <!-- Fitness goal dropdown -->
                 <div class="form-group">
                     <label for="fitnessGoal">Fitness Goal *</label>
                     <select id="fitnessGoal" required>
@@ -976,13 +815,11 @@
                     </select>
                 </div>
 
-                <!-- Start date picker -->
                 <div class="form-group">
                     <label for="startDate">Membership Start Date *</label>
                     <input type="date" id="startDate" required>
                 </div>
 
-                <!-- Form action buttons -->
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
                     <button type="submit" class="btn-primary" id="submitBtn">Add Client</button>
@@ -992,11 +829,7 @@
     </div>
 
     <script>
-        /* ========================================
-           JAVASCRIPT - DATA & STATE MANAGEMENT
-           ======================================== */
-        
-        // Sample client data (initial dataset)
+        // Sample client data
         let clients = [
             { id: 1, name: "John Smith", age: 28, gender: "Male", email: "john.smith@email.com", phone: "555-123-4567", goal: "Weight Loss", startDate: "2024-12-15" },
             { id: 2, name: "Sarah Johnson", age: 32, gender: "Female", email: "sarah.j@email.com", phone: "555-234-5678", goal: "Weight Loss", startDate: "2025-02-01" },
@@ -1010,42 +843,23 @@
             { id: 10, name: "Amanda Taylor", age: 33, gender: "Female", email: "amanda.t@email.com", phone: "555-012-3456", goal: "Endurance", startDate: "2025-01-05" }
         ];
 
-        // Track current view mode (list or grid)
         let currentView = 'list';
-        
-        // Track which client is being edited (null = adding new client)
         let editingClientId = null;
 
-        /* ========================================
-           INITIALIZATION
-           ======================================== */
-        
-        /**
-         * Initialize the application
-         * Called when page loads
-         */
+        // Initialize the app
         function init() {
             renderClients();
             updateStats();
             setTodayDate();
         }
 
-        /**
-         * Set today's date as default for start date input
-         */
+        // Set today's date as default for start date
         function setTodayDate() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('startDate').value = today;
         }
 
-        /* ========================================
-           RENDERING FUNCTIONS
-           ======================================== */
-        
-        /**
-         * Render clients based on current view mode
-         * @param {Array} filteredClients - Array of clients to display (defaults to all clients)
-         */
+        // Render clients based on current view
         function renderClients(filteredClients = clients) {
             if (currentView === 'list') {
                 renderTableView(filteredClients);
@@ -1054,10 +868,7 @@
             }
         }
 
-        /**
-         * Render clients in table/list view
-         * @param {Array} clientsToRender - Array of clients to display
-         */
+        // Render table view
         function renderTableView(clientsToRender) {
             const tbody = document.getElementById('clientTableBody');
             tbody.innerHTML = '';
@@ -1079,10 +890,7 @@
             });
         }
 
-        /**
-         * Render clients in grid/card view
-         * @param {Array} clientsToRender - Array of clients to display
-         */
+        // Render grid view
         function renderGridView(clientsToRender) {
             const gridView = document.getElementById('gridView');
             gridView.innerHTML = '';
@@ -1153,15 +961,7 @@
             });
         }
 
-        /* ========================================
-           UTILITY FUNCTIONS
-           ======================================== */
-        
-        /**
-         * Get badge color class based on fitness goal
-         * @param {string} goal - Fitness goal name
-         * @returns {string} CSS class name for badge
-         */
+        // Get badge color based on goal
         function getBadgeColor(goal) {
             const colors = {
                 'Weight Loss': 'badge-blue',
@@ -1172,25 +972,14 @@
             return colors[goal] || 'badge-blue';
         }
 
-        /**
-         * Format date string to readable format
-         * @param {string} dateString - Date in YYYY-MM-DD format
-         * @returns {string} Formatted date (e.g., "Jan 15, 2025")
-         */
+        // Format date
         function formatDate(dateString) {
             const date = new Date(dateString);
             const options = { year: 'numeric', month: 'short', day: 'numeric' };
             return date.toLocaleDateString('en-US', options);
         }
 
-        /* ========================================
-           VIEW SWITCHING
-           ======================================== */
-        
-        /**
-         * Switch between grid and list view
-         * @param {string} view - View mode ('grid' or 'list')
-         */
+        // Switch between grid and list view
         function switchView(view) {
             currentView = view;
             const gridViewBtn = document.getElementById('gridViewBtn');
@@ -1199,31 +988,21 @@
             const tableView = document.getElementById('tableView');
 
             if (view === 'grid') {
-                // Activate grid view
                 gridViewBtn.classList.add('active');
                 listViewBtn.classList.remove('active');
                 gridView.classList.remove('hidden');
                 tableView.classList.add('hidden');
             } else {
-                // Activate list view
                 listViewBtn.classList.add('active');
                 gridViewBtn.classList.remove('active');
                 tableView.classList.remove('hidden');
                 gridView.classList.add('hidden');
             }
 
-            // Re-render clients in new view
             renderClients();
         }
 
-        /* ========================================
-           SEARCH FUNCTIONALITY
-           ======================================== */
-        
-        /**
-         * Search and filter clients based on input
-         * Searches through name, email, and goal fields
-         */
+        // Search clients
         function searchClients() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const filtered = clients.filter(client => 
@@ -1234,13 +1013,7 @@
             renderClients(filtered);
         }
 
-        /* ========================================
-           MODAL MANAGEMENT
-           ======================================== */
-        
-        /**
-         * Open modal for adding a new client
-         */
+        // Open add client modal
         function openAddClientModal() {
             editingClientId = null;
             document.getElementById('modalTitle').textContent = 'Add New Client';
@@ -1250,20 +1023,14 @@
             document.getElementById('clientModal').classList.add('active');
         }
 
-        /**
-         * Open modal for editing an existing client
-         * @param {number} id - Client ID to edit
-         */
+        // Edit client
         function editClient(id) {
             editingClientId = id;
             const client = clients.find(c => c.id === id);
             if (!client) return;
 
-            // Update modal title and button text
             document.getElementById('modalTitle').textContent = 'Edit Client';
             document.getElementById('submitBtn').textContent = 'Update Client';
-            
-            // Populate form with client data
             document.getElementById('fullName').value = client.name;
             document.getElementById('age').value = client.age;
             document.getElementById('gender').value = client.gender;
@@ -1272,46 +1039,30 @@
             document.getElementById('fitnessGoal').value = client.goal;
             document.getElementById('startDate').value = client.startDate;
 
-            // Show modal
             document.getElementById('clientModal').classList.add('active');
         }
 
-        /**
-         * Close the modal and reset form
-         */
-        function closeModal() {
-            document.getElementById('clientModal').classList.remove('active');
-            document.getElementById('clientForm').reset();
-            editingClientId = null;
-        }
-
-        /* ========================================
-           CLIENT OPERATIONS
-           ======================================== */
-        
-        /**
-         * Delete a client
-         * @param {number} id - Client ID to delete
-         */
+        // Delete client
         function deleteClient(id) {
             if (confirm('Are you sure you want to delete this client?')) {
-                // Remove client from array
                 clients = clients.filter(c => c.id !== id);
-                
-                // Update UI
                 renderClients();
                 updateStats();
                 alert('Client deleted successfully!');
             }
         }
 
-        /**
-         * Handle form submission (add or edit client)
-         */
+        // Close modal
+        function closeModal() {
+            document.getElementById('clientModal').classList.remove('active');
+            document.getElementById('clientForm').reset();
+            editingClientId = null;
+        }
+
+        // Handle form submission
         document.getElementById('clientForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Collect form data
             const formData = {
                 name: document.getElementById('fullName').value,
                 age: parseInt(document.getElementById('age').value),
@@ -1330,7 +1081,7 @@
                     alert('Client updated successfully!');
                 }
             } else {
-                // Add new client with auto-generated ID
+                // Add new client
                 const newClient = {
                     id: clients.length > 0 ? Math.max(...clients.map(c => c.id)) + 1 : 1,
                     ...formData
@@ -1339,22 +1090,13 @@
                 alert('Client added successfully!');
             }
 
-            // Close modal and update UI
             closeModal();
             renderClients();
             updateStats();
         });
 
-        /* ========================================
-           STATISTICS UPDATE
-           ======================================== */
-        
-        /**
-         * Update dashboard statistics
-         * Calculates and displays total clients, new clients, and goal counts
-         */
+        // Update statistics
         function updateStats() {
-            // Update total clients count
             document.getElementById('totalClients').textContent = clients.length;
 
             // Calculate new clients this month
@@ -1367,28 +1109,20 @@
             }).length;
             document.getElementById('newClients').textContent = newThisMonth;
 
-            // Count clients by top goals
+            // Count goals
             const weightLoss = clients.filter(c => c.goal === 'Weight Loss').length;
             const muscleGain = clients.filter(c => c.goal === 'Muscle Gain').length;
             document.getElementById('weightLossCount').textContent = weightLoss;
             document.getElementById('muscleGainCount').textContent = muscleGain;
         }
 
-        /* ========================================
-           EVENT LISTENERS
-           ======================================== */
-        
-        // Close modal when clicking outside the modal content
+        // Close modal when clicking outside
         document.getElementById('clientModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        /* ========================================
-           INITIALIZE APPLICATION
-           ======================================== */
-        
         // Initialize on page load
         init();
     </script>
