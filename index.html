@@ -1,76 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fitness CRM - Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <header class="header">
-      <div class="header-brand">
-        <div class="logo">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-            <path d="M15.31 15.31 8.69 8.69"></path>
-            <path d="M15.31 8.69 8.69 15.31"></path>
-            <path d="M12 2v20"></path>
-            <path d="M2 12h20"></path>
-          </svg>
-        </div>
-        <div>
-          <h1>Fitness CRM</h1>
-          <p>Manage your clients with ease</p>
-        </div>
-      </div>
-      <a href="clientlist.html" class="btn-add-client">View Clients</a>
-    </header>
+  <header class="header">
+    <h1>🏋️‍♀️ Fitness CRM</h1>
+    <a href="clientlist.html" class="btn">Go to Client List</a>
+  </header>
 
-    <main class="main-content">
-      <section class="stats-grid">
-        <div class="stat-card stat-card-blue">
-          <div class="stat-icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <div class="stat-info">
-            <h2 id="totalClients">0</h2>
-            <span>Total Clients</span>
-          </div>
-        </div>
-
-        <div class="stat-card stat-card-green">
-          <div class="stat-icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="19" x2="12" y2="5"></line>
-              <polyline points="5 12 12 5 19 12"></polyline>
-            </svg>
-          </div>
-          <div class="stat-info">
-            <h2 id="newThisMonth">0</h2>
-            <span>New This Month</span>
-          </div>
-        </div>
-
-        <div class="stat-card stat-card-yellow">
-          <div class="stat-icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-          </div>
-          <div class="stat-info-goals">
-            <span>Top Goals</span>
-            <p>Weight: <strong id="weightCount">0</strong> &nbsp; Muscle: <strong id="muscleCount">0</strong></p>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+  <main class="main">
+    <div class="card blue">
+      <h2 id="totalClients">0</h2>
+      <p>Total Clients</p>
+    </div>
+    <div class="card green">
+      <h2 id="newThisMonth">0</h2>
+      <p>New This Month</p>
+    </div>
+    <div class="card yellow">
+      <h2>Top Goals</h2>
+      <p>Weight Loss: <span id="weightCount">0</span> | Muscle Gain: <span id="muscleCount">0</span></p>
+    </div>
+  </main>
 
   <script src="app.js"></script>
 </body>
