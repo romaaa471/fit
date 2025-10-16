@@ -62,7 +62,7 @@ body {
     font-weight: 300;
 }
 
-.btn-add-client {
+.btn-header-action {
     background-color: rgba(255, 255, 255, 0.25);
     color: var(--white);
     border: 1.5px solid rgba(255, 255, 255, 0.6);
@@ -76,7 +76,7 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.btn-add-client:hover {
+.btn-header-action:hover {
     background-color: rgba(255, 255, 255, 0.35);
     border-color: rgba(255, 255, 255, 0.8);
     transform: translateY(-1px);
@@ -455,7 +455,7 @@ body {
 
 /* --- Modal Styles --- */
 .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
