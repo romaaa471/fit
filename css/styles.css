@@ -2,6 +2,7 @@
 :root {
     --primary-blue: #2B72E0;
     --primary-green: #34C759;
+    --danger-red: #f44336;
     --bg-light-blue: #EAF2FE;
     --bg-light-green: #E9F8ED;
     --bg-light-yellow: #FFF8E6;
@@ -56,9 +57,9 @@ body {
 }
 
 .btn-add-client, .btn-view-clients {
-    background-color: var(--primary-blue);
+    background-color: rgba(255, 255, 255, 0.2);
     color: var(--white);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
     font-weight: 500;
@@ -68,7 +69,7 @@ body {
 }
 
 .btn-add-client:hover, .btn-view-clients:hover {
-    background-color: #1A5ABC;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* --- Main Content Layout --- */
@@ -76,7 +77,7 @@ body {
     padding: 2rem 2.5rem;
 }
 
-/* --- Stats Grid Styles --- */
+/* --- Stats Grid Styles (index.html) --- */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -116,22 +117,18 @@ body {
 .stat-info h2, .stat-info-goals strong {
     font-size: 2rem;
     font-weight: 600;
-    color: var(--text-dark);
 }
-
 .stat-info span, .stat-info-goals span {
     font-size: 0.9rem;
     color: var(--text-light);
 }
 .stat-info-goals p {
     font-size: 0.9rem;
-    color: var(--text-dark);
     margin-top: 4px;
 }
 .stat-info-goals span {
     font-weight: 500;
 }
-
 
 /* --- Client Controls (Search & Toggle) --- */
 .client-controls {
@@ -179,6 +176,7 @@ body {
     border-radius: 6px;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .toggle-btn.active {
@@ -194,8 +192,7 @@ body {
     color: var(--primary-blue);
 }
 
-
-/* --- Client Grid & Card Styles --- */
+/* --- Client Grid & Card Styles (index.html) --- */
 .client-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -224,11 +221,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.client-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+.client-info { display: flex; align-items: center; gap: 1rem; }
 
 .client-avatar {
     width: 48px;
@@ -243,10 +236,7 @@ body {
     font-weight: 600;
 }
 
-.client-name-age h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-}
+.client-name-age h3 { font-size: 1.2rem; font-weight: 600; }
 
 .age-tag {
     background-color: #E9F8ED;
@@ -260,48 +250,80 @@ body {
     gap: 4px;
     margin-top: 4px;
 }
+.age-tag svg { stroke-width: 2.5; }
 
-.age-tag svg {
-    stroke-width: 2.5;
+.card-actions { display: flex; gap: 1rem; color: var(--text-light); }
+.card-actions svg { cursor: pointer; transition: color 0.2s ease; }
+.card-actions svg:hover { color: var(--primary-blue); }
+.card-body { display: grid; gap: 0.75rem; }
+.card-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; color: var(--text-light); }
+.card-item svg { stroke-width: 1.8; }
+.card-item span { color: var(--text-dark); }
+
+/* --- Client Table Styles (clientlist.html) --- */
+.table-container {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden; /* Important for border-radius */
 }
 
-.card-actions {
-    display: flex;
-    gap: 1rem;
+.client-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.client-table th, .client-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.client-table thead {
+    background-color: #F8F9FA;
+}
+
+.client-table th {
+    font-weight: 600;
+    font-size: 0.85rem;
     color: var(--text-light);
+    text-transform: uppercase;
 }
 
-.card-actions svg {
+.client-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.badge-blue { background-color: var(--bg-light-blue); color: var(--primary-blue); }
+.badge-green { background-color: var(--bg-light-green); color: var(--primary-green); }
+.badge-purple { background-color: #F4EFFF; color: #8E44AD; }
+
+.btn-action {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
     cursor: pointer;
-    transition: color 0.2s ease;
-}
-.card-actions svg:hover {
-    color: var(--primary-blue);
-}
-
-.card-body {
-    display: grid;
-    gap: 0.75rem;
+    margin-right: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
-.card-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-.card-item svg {
-    stroke-width: 1.8;
-}
-
-.card-item span {
-    color: var(--text-dark);
-}
+.btn-edit { color: var(--primary-blue); }
+.btn-edit:hover { background-color: var(--bg-light-blue); border-color: var(--primary-blue); }
+.btn-delete { color: var(--danger-red); }
+.btn-delete:hover { background-color: #FFF0F0; border-color: var(--danger-red); }
 
 
-/* --- Form Styles (for index.html) --- */
+/* --- Form Styles (add-client.html) --- */
 .form-container {
     background: white;
     padding: 2.5rem;
@@ -317,59 +339,6 @@ body {
     text-align: center;
 }
 
-.client-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-}
-
-.form-group label {
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.form-group input,
-.form-group select {
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(43, 114, 224, 0.2);
-}
-
-.btn-primary {
-    background-color: var(--primary-green);
-    color: white;
-    padding: 0.85rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: #2BAF4A;
-}
+.client-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.
