@@ -1,32 +1,1130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fitness CRM - Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness CRM - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base Styles --- */
+        :root {
+            --primary-blue: #2563EB;
+            --primary-green: #10B981;
+            --danger-red: #EF4444;
+            --bg-light-blue: #EFF6FF;
+            --bg-light-green: #ECFDF5;
+            --bg-light-yellow: #FEF9C3;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --border-color: #E5E7EB;
+            --white: #FFFFFF;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --header-gradient: linear-gradient(135deg, #1E40AF 0%, #10B981 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F9FAFB;
+            color: var(--text-dark);
+        }
+
+        /* --- Header --- */
+        .header {
+            background: var(--header-gradient);
+            color: var(--white);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .header-brand .logo {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-brand .logo svg {
+            stroke: var(--white);
+        }
+
+        .header-brand h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-brand p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .btn-add-client {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.85rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-add-client:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            padding: 2.5rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- Stats Grid --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .stat-card-blue .stat-icon { background-color: var(--bg-light-blue); }
+        .stat-card-blue .stat-icon svg { stroke: var(--primary-blue); }
+        .stat-card-green .stat-icon { background-color: var(--bg-light-green); }
+        .stat-card-green .stat-icon svg { stroke: var(--primary-green); }
+        .stat-card-yellow .stat-icon { background-color: var(--bg-light-yellow); }
+        .stat-card-yellow .stat-icon svg { stroke: #F59E0B; }
+
+        .stat-info h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-info span {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .stat-info-goals {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-info-goals span {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .stat-info-goals p {
+            font-size: 1.1rem;
+            margin-top: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .stat-info-goals strong {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Client Controls --- */
+        .client-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1.5rem;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .search-bar svg {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1.25rem 1rem 3.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background-color: var(--white);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .view-toggle {
+            display: flex;
+            background-color: var(--white);
+            padding: 6px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            gap: 4px;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            background-color: var(--primary-blue);
+        }
+
+        .toggle-btn svg {
+            color: var(--text-light);
+        }
+
+        .toggle-btn.active svg {
+            color: var(--white);
+        }
+
+        /* --- Client Grid --- */
+        .client-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .client-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .client-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .client-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1E40AF 100%);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .client-name-age h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .age-tag {
+            background-color: var(--bg-light-green);
+            color: var(--primary-green);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .age-tag svg {
+            stroke-width: 2.5;
+            width: 14px;
+            height: 14px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-light);
+        }
+
+        .card-actions svg {
+            cursor: pointer;
+            transition: color 0.2s ease;
+            width: 20px;
+            height: 20px;
+        }
+
+        .card-actions svg:hover {
+            color: var(--primary-blue);
+        }
+
+        .card-body {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .card-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .card-item svg {
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        .card-item span {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* --- Table View --- */
+        .table-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .client-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .client-table th,
+        .client-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .client-table thead {
+            background-color: #F9FAFB;
+        }
+
+        .client-table th {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .client-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .client-table tbody tr:hover {
+            background-color: #F9FAFB;
+        }
+
+        .badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-blue { background-color: var(--bg-light-blue); color: var(--primary-blue); }
+        .badge-green { background-color: var(--bg-light-green); color: var(--primary-green); }
+        .badge-purple { background-color: #F4EFFF; color: #8B5CF6; }
+        .badge-orange { background-color: #FEF3C7; color: #F59E0B; }
+
+        .btn-action {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit { color: var(--primary-blue); }
+        .btn-edit:hover { background-color: var(--bg-light-blue); border-color: var(--primary-blue); }
+        .btn-delete { color: var(--danger-red); }
+        .btn-delete:hover { background-color: #FEF2F2; border-color: var(--danger-red); }
+
+        /* --- Form Styles --- */
+        .form-container {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-container h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .client-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #1E40AF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #F9FAFB;
+        }
+
+        /* --- Modal --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+        }
+
+        /* --- Hidden --- */
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1.5rem;
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .header-brand {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-brand h1 {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .client-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .client-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .client-table {
+                min-width: 800px;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="header">
-    <h1>🏋️‍♀️ Fitness CRM</h1>
-    <a href="clientlist.html" class="btn">Go to Client List</a>
-  </header>
+    <div class="dashboard-container">
+        <header class="header">
+            <div class="header-brand">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M15.31 15.31 8.69 8.69"></path>
+                        <path d="M15.31 8.69 8.69 15.31"></path>
+                        <path d="M12 2v20"></path>
+                        <path d="M2 12h20"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Fitness CRM</h1>
+                    <p>Manage your clients with ease</p>
+                </div>
+            </div>
+            <button class="btn-add-client" onclick="openAddClientModal()">+ Add Client</button>
+        </header>
 
-  <main class="main">
-    <div class="card blue">
-      <h2 id="totalClients">0</h2>
-      <p>Total Clients</p>
-    </div>
-    <div class="card green">
-      <h2 id="newThisMonth">0</h2>
-      <p>New This Month</p>
-    </div>
-    <div class="card yellow">
-      <h2>Top Goals</h2>
-      <p>Weight Loss: <span id="weightCount">0</span> | Muscle Gain: <span id="muscleCount">0</span></p>
-    </div>
-  </main>
+        <main class="main-content">
+            <!-- Stats Section -->
+            <section class="stats-grid">
+                <div class="stat-card stat-card-blue">
+                    <div class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h2 id="totalClients">10</h2>
+                        <span>Total Clients</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card-green">
+                    <div class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="19" x2="12" y2="5"></line>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h2 id="newClients">3</h2>
+                        <span>New This Month</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card-yellow">
+                    <div class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div class="stat-info-goals">
+                        <span>Top Goals</span>
+                        <p>Weight Loss: <strong id="weightLossCount">4</strong> &nbsp; Muscle Gain: <strong id="muscleGainCount">3</strong></p>
+                    </div>
+                </div>
+            </section>
 
-  <script src="app.js"></script>
+            <!-- Controls Section -->
+            <section class="client-controls">
+                <div class="search-bar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search clients by name, email, or goal..." oninput="searchClients()">
+                </div>
+                <div class="view-toggle">
+                    <button class="toggle-btn" id="gridViewBtn" onclick="switchView('grid')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </button>
+                    <button class="toggle-btn active" id="listViewBtn" onclick="switchView('list')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Grid View -->
+            <section class="client-grid hidden" id="gridView"></section>
+
+            <!-- Table View -->
+            <div class="table-container" id="tableView">
+                <table class="client-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Fitness Goal</th>
+                            <th>Start Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientTableBody"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Client Modal -->
+    <div class="modal" id="clientModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Add New Client</h2>
+            <form class="client-form" id="clientForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age *</label>
+                        <input type="number" id="age" min="1" max="120" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">Gender *</label>
+                        <select id="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone *</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fitnessGoal">Fitness Goal *</label>
+                    <select id="fitnessGoal" required>
+                        <option value="">Select Goal</option>
+                        <option value="Weight Loss">Weight Loss</option>
+                        <option value="Muscle Gain">Muscle Gain</option>
+                        <option value="General Fitness">General Fitness</option>
+                        <option value="Endurance">Endurance</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">Membership Start Date *</label>
+                    <input type="date" id="startDate" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-primary" id="submitBtn">Add Client</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample client data
+        let clients = [
+            { id: 1, name: "John Smith", age: 28, gender: "Male", email: "john.smith@email.com", phone: "555-123-4567", goal: "Weight Loss", startDate: "2024-12-15" },
+            { id: 2, name: "Sarah Johnson", age: 32, gender: "Female", email: "sarah.j@email.com", phone: "555-234-5678", goal: "Weight Loss", startDate: "2025-02-01" },
+            { id: 3, name: "Mike Davis", age: 25, gender: "Male", email: "mike.davis@email.com", phone: "555-345-6789", goal: "General Fitness", startDate: "2025-01-20" },
+            { id: 4, name: "Emily Chen", age: 29, gender: "Female", email: "emily.chen@email.com", phone: "555-456-7890", goal: "Muscle Gain", startDate: "2024-11-10" },
+            { id: 5, name: "David Wilson", age: 35, gender: "Male", email: "david.w@email.com", phone: "555-567-8901", goal: "Weight Loss", startDate: "2025-03-05" },
+            { id: 6, name: "Lisa Anderson", age: 27, gender: "Female", email: "lisa.a@email.com", phone: "555-678-9012", goal: "Muscle Gain", startDate: "2024-12-20" },
+            { id: 7, name: "Robert Brown", age: 41, gender: "Male", email: "rob.brown@email.com", phone: "555-789-0123", goal: "General Fitness", startDate: "2025-01-15" },
+            { id: 8, name: "Jennifer Lee", age: 30, gender: "Female", email: "jen.lee@email.com", phone: "555-890-1234", goal: "Weight Loss", startDate: "2025-02-28" },
+            { id: 9, name: "Chris Martinez", age: 26, gender: "Male", email: "chris.m@email.com", phone: "555-901-2345", goal: "Muscle Gain", startDate: "2025-03-10" },
+            { id: 10, name: "Amanda Taylor", age: 33, gender: "Female", email: "amanda.t@email.com", phone: "555-012-3456", goal: "Endurance", startDate: "2025-01-05" }
+        ];
+
+        let currentView = 'list';
+        let editingClientId = null;
+
+        // Initialize the app
+        function init() {
+            renderClients();
+            updateStats();
+            setTodayDate();
+        }
+
+        // Set today's date as default for start date
+        function setTodayDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').value = today;
+        }
+
+        // Render clients based on current view
+        function renderClients(filteredClients = clients) {
+            if (currentView === 'list') {
+                renderTableView(filteredClients);
+            } else {
+                renderGridView(filteredClients);
+            }
+        }
+
+        // Render table view
+        function renderTableView(clientsToRender) {
+            const tbody = document.getElementById('clientTableBody');
+            tbody.innerHTML = '';
+
+            clientsToRender.forEach(client => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${client.name}</td>
+                    <td>${client.email}</td>
+                    <td>${client.phone}</td>
+                    <td><span class="badge ${getBadgeColor(client.goal)}">${client.goal}</span></td>
+                    <td>${formatDate(client.startDate)}</td>
+                    <td>
+                        <button class="btn-action btn-edit" onclick="editClient(${client.id})">Edit</button>
+                        <button class="btn-action btn-delete" onclick="deleteClient(${client.id})">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Render grid view
+        function renderGridView(clientsToRender) {
+            const gridView = document.getElementById('gridView');
+            gridView.innerHTML = '';
+
+            clientsToRender.forEach(client => {
+                const card = document.createElement('div');
+                card.className = 'client-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="client-info">
+                            <div class="client-avatar">${client.name.charAt(0)}</div>
+                            <div class="client-name-age">
+                                <h3>${client.name}</h3>
+                                <span class="age-tag">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    Age ${client.age}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="editClient(${client.id})">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="deleteClient(${client.id})">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span>${client.email}</span>
+                        </div>
+                        <div class="card-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <span>${client.phone}</span>
+                        </div>
+                        <div class="card-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                            <span>${client.goal}</span>
+                        </div>
+                        <div class="card-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>Started ${formatDate(client.startDate)}</span>
+                        </div>
+                    </div>
+                `;
+                gridView.appendChild(card);
+            });
+        }
+
+        // Get badge color based on goal
+        function getBadgeColor(goal) {
+            const colors = {
+                'Weight Loss': 'badge-blue',
+                'Muscle Gain': 'badge-green',
+                'General Fitness': 'badge-purple',
+                'Endurance': 'badge-orange'
+            };
+            return colors[goal] || 'badge-blue';
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Switch between grid and list view
+        function switchView(view) {
+            currentView = view;
+            const gridViewBtn = document.getElementById('gridViewBtn');
+            const listViewBtn = document.getElementById('listViewBtn');
+            const gridView = document.getElementById('gridView');
+            const tableView = document.getElementById('tableView');
+
+            if (view === 'grid') {
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                gridView.classList.remove('hidden');
+                tableView.classList.add('hidden');
+            } else {
+                listViewBtn.classList.add('active');
+                gridViewBtn.classList.remove('active');
+                tableView.classList.remove('hidden');
+                gridView.classList.add('hidden');
+            }
+
+            renderClients();
+        }
+
+        // Search clients
+        function searchClients() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = clients.filter(client => 
+                client.name.toLowerCase().includes(searchTerm) ||
+                client.email.toLowerCase().includes(searchTerm) ||
+                client.goal.toLowerCase().includes(searchTerm)
+            );
+            renderClients(filtered);
+        }
+
+        // Open add client modal
+        function openAddClientModal() {
+            editingClientId = null;
+            document.getElementById('modalTitle').textContent = 'Add New Client';
+            document.getElementById('submitBtn').textContent = 'Add Client';
+            document.getElementById('clientForm').reset();
+            setTodayDate();
+            document.getElementById('clientModal').classList.add('active');
+        }
+
+        // Edit client
+        function editClient(id) {
+            editingClientId = id;
+            const client = clients.find(c => c.id === id);
+            if (!client) return;
+
+            document.getElementById('modalTitle').textContent = 'Edit Client';
+            document.getElementById('submitBtn').textContent = 'Update Client';
+            document.getElementById('fullName').value = client.name;
+            document.getElementById('age').value = client.age;
+            document.getElementById('gender').value = client.gender;
+            document.getElementById('email').value = client.email;
+            document.getElementById('phone').value = client.phone;
+            document.getElementById('fitnessGoal').value = client.goal;
+            document.getElementById('startDate').value = client.startDate;
+
+            document.getElementById('clientModal').classList.add('active');
+        }
+
+        // Delete client
+        function deleteClient(id) {
+            if (confirm('Are you sure you want to delete this client?')) {
+                clients = clients.filter(c => c.id !== id);
+                renderClients();
+                updateStats();
+                alert('Client deleted successfully!');
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('clientModal').classList.remove('active');
+            document.getElementById('clientForm').reset();
+            editingClientId = null;
+        }
+
+        // Handle form submission
+        document.getElementById('clientForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('fullName').value,
+                age: parseInt(document.getElementById('age').value),
+                gender: document.getElementById('gender').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                goal: document.getElementById('fitnessGoal').value,
+                startDate: document.getElementById('startDate').value
+            };
+
+            if (editingClientId) {
+                // Update existing client
+                const index = clients.findIndex(c => c.id === editingClientId);
+                if (index !== -1) {
+                    clients[index] = { ...clients[index], ...formData };
+                    alert('Client updated successfully!');
+                }
+            } else {
+                // Add new client
+                const newClient = {
+                    id: clients.length > 0 ? Math.max(...clients.map(c => c.id)) + 1 : 1,
+                    ...formData
+                };
+                clients.push(newClient);
+                alert('Client added successfully!');
+            }
+
+            closeModal();
+            renderClients();
+            updateStats();
+        });
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalClients').textContent = clients.length;
+
+            // Calculate new clients this month
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+            const newThisMonth = clients.filter(client => {
+                const startDate = new Date(client.startDate);
+                return startDate.getMonth() === currentMonth && startDate.getFullYear() === currentYear;
+            }).length;
+            document.getElementById('newClients').textContent = newThisMonth;
+
+            // Count goals
+            const weightLoss = clients.filter(c => c.goal === 'Weight Loss').length;
+            const muscleGain = clients.filter(c => c.goal === 'Muscle Gain').length;
+            document.getElementById('weightLossCount').textContent = weightLoss;
+            document.getElementById('muscleGainCount').textContent = muscleGain;
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('clientModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize on page load
+        init();
+    </script>
 </body>
 </html>
